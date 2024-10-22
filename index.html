@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Dialog Box</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Dialog box styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .dialog-box {
+            background-color: white;
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transform: translateY(-30px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .dialog-box.open {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .dialog-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .dialog-body {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .dialog-actions button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dialog-actions button:hover {
+            background-color: #2980b9;
+        }
+
+        .close-btn {
+            background-color: #e74c3c;
+        }
+
+        .close-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Open button */
+        .open-dialog-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .open-dialog-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="open-dialog-btn" onclick="openDialog()">Open Dialog</button>
+
+    <!-- Dialog overlay -->
+    <div id="dialog-overlay" class="dialog-overlay">
+        <!-- Dialog box -->
+        <div class="dialog-box" id="dialog-box">
+            <div class="dialog-header">Welcome!</div>
+            <div class="dialog-body">This is a simple dialog box. You can customize it as needed.</div>
+            <div class="dialog-actions">
+                <button class="close-btn" onclick="closeDialog()">Close</button>
+                <button onclick="okClicked()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDialog() {
+            const overlay = document.getElementById('dialog-overlay');
+            const dialog = document.getElementById('dialog-box');
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                dialog.classList.add('open');
+            }, 100); // Slight delay for animation effect
+        }
+
+        function closeDialog() {
+            const overlay = document.getElementById('dialog-overlay');
+            const dialog = document.getElementById('dialog-box');
+            dialog.classList.remove('open');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500); // Wait for animation to finish before hiding the overlay
+        }
+
+        function okClicked() {
+            alert('You clicked OK!');
+            closeDialog();
+        }
+    </script>
+
+</body>
+</html>
